@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: pink;
+        }
+        .heading {
+            font-family: 'Chewy', cursive;
+            /* Soft pink base color */
+            color: #eb758d; 
+            font-size: 60px; /* Increased for better effect */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 65vh;
+            /* Crystal/Glass layering effect */
+            text-shadow: 
+                1px 1px 1px #fff,
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 182, 193, 0.5);
+            letter-spacing: 2px;
+        }
+        button {
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            background: #ff4d6d;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden; /* Important for the shine */
+        }
+
+        /* The Shine Animation */
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: rotate(30deg);
+            transition: none;
+        }
+
+        button:hover::after {
+            left: 120%;
+            transition: all 0.6s ease-in-out;
+        }
+    </style>
+    <script>
+        function createKiss() {
+            const kiss = document.createElement('div');
+            kiss.innerText = '💋';
+            kiss.style.position = 'fixed';
+            kiss.style.left = Math.random() * 100 + 'vw';
+            kiss.style.top = Math.random() * 100 + 'vh';
+            kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            kiss.style.opacity = '0';
+            kiss.style.transition = 'all 2s ease-in-out';
+            kiss.style.zIndex = '-1'; // Keeps them in the background
+            
+            document.body.appendChild(kiss);
+
+            // Animate in and out
+            setTimeout(() => {
+                kiss.style.opacity = '1.0';
+                kiss.style.transform = 'scale(3)';
+            }, 100);
+
+            setTimeout(() => {
+                kiss.style.opacity = '0';
+                setTimeout(() => kiss.remove(), 2000);
+            }, 3000);
+        }
+
+        // Create a new kiss every 800ms
+        setInterval(createKiss, 300);
+    </script>
+    <script>
+    function creatheart() {
+            const kiss = document.createElement('div');
+            kiss.innerText = '💗';
+            kiss.style.position = 'fixed';
+            kiss.style.left = Math.random() * 100 + 'vw';
+            kiss.style.top = Math.random() * 100 + 'vh';
+            kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            kiss.style.opacity = '0';
+            kiss.style.transition = 'all 2s ease-in-out';
+            kiss.style.zIndex = '-1'; // Keeps them in the background
+            
+            document.body.appendChild(kiss);
+
+            // Animate in and out
+            setTimeout(() => {
+                kiss.style.opacity = '1.0';
+                kiss.style.transform = 'scale(3)';
+            }, 100);
+
+            setTimeout(() => {
+                kiss.style.opacity = '0';
+                setTimeout(() => kiss.remove(), 2000);
+            }, 3000);
+        }
+
+        // Create a new kiss every 800ms
+        setInterval(creatheart, 300);
+    </script>
+</head>
+<body>
+    <div class="heading">
+        <span>HAPPYYY VALENTINESSS DAYYYY</span>
+        <span class="sub-heading">MYYY LOVEEEE💌💘💕🥰</span>
+        <a href="page2.html">
+            <button align="center">Click me </button>
+        </a>
+    </div>
+</body>
+</html>

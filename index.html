@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: pink;
+        }
+        .heading {
+            font-family: 'Chewy', cursive;
+            /* Soft pink base color */
+            color: #eb758d; 
+            font-size: 60px; /* Increased for better effect */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 65vh;
+            /* Crystal/Glass layering effect */
+            text-shadow: 
+                1px 1px 1px #fff,
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 182, 193, 0.5);
+            letter-spacing: 2px;
+        }
+        button {
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            background: #ff4d6d;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden; 
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 10px 25px; /* Matches your existing button padding */
+            cursor: pointer; 
+            height: 60px;
+        }
+        .button-group {
+            display: flex;       /* Aligns children in a row */
+            flex-direction: row; /* Ensures they stay side-by-side */
+            justify-content: center; /* Centers the group on the screen */
+            gap: 250px;          /* Adds space between the buttons */
+            margin-top: 20px;   /* Adds space below your text */
+        }
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: rotate(30deg);
+            transition: none;
+        }
+
+        button:hover::after {
+            left: 120%;
+            transition: all 0.6s ease-in-out;
+        }
+        .bulk-emoji {
+            position: fixed;
+            bottom: -50px; /* Start below the screen */
+            font-size: 2.5rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: bulkFloat 2s ease-in forwards;
+        }
+
+        @keyframes bulkFloat {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-110vh); /* Move past the top */
+                opacity: 0;
+            }
+        }
+    </style>
+    <script>
+        function createKiss() {
+            const kiss = document.createElement('div');
+            kiss.innerText = '❓';
+            kiss.style.position = 'fixed';
+            kiss.style.left = Math.random() * 100 + 'vw';
+            kiss.style.top = Math.random() * 100 + 'vh';
+            kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            kiss.style.opacity = '0';
+            kiss.style.transition = 'all 2s ease-in-out';
+            kiss.style.zIndex = '-1'; // Keeps them in the background
+            
+            document.body.appendChild(kiss);
+
+            // Animate in and out
+            setTimeout(() => {
+                kiss.style.opacity = '1.0';
+                kiss.style.transform = 'scale(3)';
+            }, 100);
+
+            setTimeout(() => {
+                kiss.style.opacity = '0';
+                setTimeout(() => kiss.remove(), 2000);
+            }, 3000);
+        }
+
+        // Create a new kiss every 800ms
+        setInterval(createKiss, 300);
+    </script>
+</head>
+<body>
+    <div class="heading">
+        <p align="center">HELLO THERE<br> ARE YOU MY KAVU?</p>
+        <div class="button-group">
+        <a href="javascript:void(0)" onclick="handleYesClick(event)">
+            <button>YES 😉</button>
+        </a>
+        <a href="no.html"><button>No 🥺</button></a>
+    </div>
+
+    <script>
+        function handleYesClick(event) {
+            // 1. Prevent the page from changing immediately
+            if (event) event.preventDefault();
+
+            const emojiSymbol = '🥳'; 
+            const emojiCount = 40;     
+
+            for (let i = 0; i < emojiCount; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'bulk-emoji';
+                    emoji.innerText = emojiSymbol;
+                    
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.animationDuration = (1.5 + Math.random()) + 's';
+
+                    document.body.appendChild(emoji);
+
+                    setTimeout(() => emoji.remove(), 2000);
+                }, i * 30); 
+            }
+
+            // 2. Now the redirect happens ONLY after the hearts have started flying
+            setTimeout(() => {
+                window.location.href = "home.html";
+            }, 1800);
+        }
+    </script>
+</body>
+</html>

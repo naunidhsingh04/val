@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.body.addEventListener('click', function() {
+        var audio = document.getElementById('bg-music');
+        if (audio.paused) {
+            audio.play();
+        }
+    }, { once: true });
+    </script>
+    <script>
+        function createKiss() {
+            const kiss = document.createElement('div');
+            kiss.innerText = '❤️';
+            kiss.style.position = 'fixed';
+            kiss.style.left = Math.random() * 100 + 'vw';
+            kiss.style.top = Math.random() * 100 + 'vh';
+            kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            kiss.style.opacity = '0';
+            kiss.style.transition = 'all 2s ease-in-out';
+            kiss.style.zIndex = '-1'; // Keeps them in the background
+            
+            document.body.appendChild(kiss);
+
+            // Animate in and out
+            setTimeout(() => {
+                kiss.style.opacity = '1.0';
+                kiss.style.transform = 'scale(3)';
+            }, 100);
+
+            setTimeout(() => {
+                kiss.style.opacity = '0';
+                setTimeout(() => kiss.remove(), 2000);
+            }, 3000);
+        }
+
+        // Create a new kiss every 800ms
+        setInterval(createKiss, 300);
+    </script>
+    <script>
+    const observerOptions = {
+        threshold: 0.5 // Triggers when 50% of the line is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    // Apply the observer to every line of text
+    document.querySelectorAll('.reveal-text').forEach(line => {
+        observer.observe(line);
+    });
+</script>
+</head>
+<body>
+    <audio id="bg-music" loop autoplay>
+    <source src="./Love Story(PagaiWorld.com).mp3" type="audio/mpeg">
+    </audio>
+    <div class="main-container">
+    <div class="scroll-track">
+        <div class="polaroid"><img src="IMG-20250809-WA0032.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0028.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0029.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0030.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0031.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0036.jpg"></div>
+        
+        <div class="polaroid"><img src="IMG-20250809-WA0032.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0028.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0029.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0030.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0031.jpg"></div>
+        <div class="polaroid"><img src="IMG-20250809-WA0036.jpg"></div>
+    </div>
+</div>
+<br>
+<div class="content-wrapper">
+    <div class="message-section">
+        <h2 class="reveal-text">To My Dearest Love,</h2>
+        <p class="reveal-text">On this special day, I want to remind you how much you mean to me...</p>
+        <p class="reveal-text">Happy Valentine's Day! May our love continue to grow stronger...</p>
+        <p class="reveal-text signature">Forever yours, <br> Kavu ka Noddy</p>
+    </div>
+    <br><br><br><br><br>
+    <a href="page3.html" class="next-link">
+        <button>Next</button>
+    </a>
+</div>
+</body>
+</html>
