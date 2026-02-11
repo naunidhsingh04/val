@@ -41,7 +41,7 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            gap: 50px; /* Reduced gap slightly for better mobile view */
+            gap: 50px;
             margin-top: -10px; 
         }
 
@@ -144,13 +144,11 @@
                 noBtn.style.position = 'static'; 
                 step = 2;
             } else {
-                // UPDATE: Change the URL below to your specific YouTube video link
-                const youtubeLink = "https://youtu.be/qENCgw6Whqs"; 
-                handleFinalTransition(youtubeLink);
+                handleFinalTransition();
             }
         }
 
-        function handleFinalTransition(targetPage) {
+        function handleFinalTransition() {
             const emojiCount = 40; 
             for (let i = 0; i < emojiCount; i++) {
                 setTimeout(() => {
@@ -164,9 +162,16 @@
                 }, i * 30);
             }
 
-            // Redirects to YouTube after the heart animation
+            // After the heart animation, show the iframe instead of redirecting
             setTimeout(() => {
-                window.location.href = targetPage;
+                const container = document.getElementById('container');
+                container.innerHTML = `
+                    <iframe width="560" height="315" 
+                        src="https://www.youtube.com/embed/qENCgw6Whqs?autoplay=1" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>`;
             }, 1800);
         }
 
