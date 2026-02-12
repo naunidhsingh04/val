@@ -6,39 +6,62 @@
     <title>Home Page</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        
         body {
             margin: 0;
             height: 100vh;
             background-color: pink;
-        }
-        .heading {
-            font-family: 'Chewy', cursive;
-            /* Soft pink base color */
-            color: #eb758d; 
-            font-size: 60px; /* Increased for better effect */
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 65vh;
-            /* Crystal/Glass layering effect */
+            justify-content: center;
+            font-family: 'Chewy', cursive;
+            overflow: hidden;
+        }
+
+        .heading {
+            text-align: center;
+            color: #eb758d; 
+            /* Keeping font-size exactly at 60px as requested */
+            font-size: 60px; 
             text-shadow: 
                 1px 1px 1px #fff,
                 0 0 10px rgba(255, 255, 255, 0.8),
                 0 0 20px rgba(255, 182, 193, 0.5);
             letter-spacing: 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeIn 1.5s ease-out;
         }
+
+        .sub-heading {
+            /* Keeping sub-heading size exactly at 30px */
+            font-size: 30px; 
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         button {
-            padding: 12px 25px;
+            margin-top: 30px;
+            padding: 12px 35px;
             border-radius: 25px;
             border: none;
             background: #ff4d6d;
             color: white;
-            font-size: 18px;
+            font-size: 22px;
             cursor: pointer;
             position: relative;
-            overflow: hidden; /* Important for the shine */
+            overflow: hidden;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
         }
+
+        button:hover { transform: scale(1.1); }
 
         /* The Shine Animation */
         button::after {
@@ -50,80 +73,100 @@
             height: 200%;
             background: rgba(255, 255, 255, 0.4);
             transform: rotate(30deg);
-            transition: none;
         }
 
         button:hover::after {
             left: 120%;
             transition: all 0.6s ease-in-out;
         }
+
+        .bulk-emoji {
+            position: fixed;
+            bottom: -100px;
+            font-size: 3rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: bulkFloatUp 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes bulkFloatUp {
+            0% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            20% { opacity: 1; }
+            100% { 
+                transform: translateY(-120vh) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
     </style>
-    <script>
-        function createKiss() {
-            const kiss = document.createElement('div');
-            kiss.innerText = '💋';
-            kiss.style.position = 'fixed';
-            kiss.style.left = Math.random() * 100 + 'vw';
-            kiss.style.top = Math.random() * 100 + 'vh';
-            kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            kiss.style.opacity = '0';
-            kiss.style.transition = 'all 2s ease-in-out';
-            kiss.style.zIndex = '-1'; // Keeps them in the background
-            
-            document.body.appendChild(kiss);
-
-            // Animate in and out
-            setTimeout(() => {
-                kiss.style.opacity = '1.0';
-                kiss.style.transform = 'scale(3)';
-            }, 100);
-
-            setTimeout(() => {
-                kiss.style.opacity = '0';
-                setTimeout(() => kiss.remove(), 2000);
-            }, 3000);
-        }
-
-        // Create a new kiss every 800ms
-        setInterval(createKiss, 300);
-    </script>
-    <script>
-    function creatheart() {
-            const kiss = document.createElement('div');
-            kiss.innerText = '💗';
-            kiss.style.position = 'fixed';
-            kiss.style.left = Math.random() * 100 + 'vw';
-            kiss.style.top = Math.random() * 100 + 'vh';
-            kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            kiss.style.opacity = '0';
-            kiss.style.transition = 'all 2s ease-in-out';
-            kiss.style.zIndex = '-1'; // Keeps them in the background
-            
-            document.body.appendChild(kiss);
-
-            // Animate in and out
-            setTimeout(() => {
-                kiss.style.opacity = '1.0';
-                kiss.style.transform = 'scale(3)';
-            }, 100);
-
-            setTimeout(() => {
-                kiss.style.opacity = '0';
-                setTimeout(() => kiss.remove(), 2000);
-            }, 3000);
-        }
-
-        // Create a new kiss every 800ms
-        setInterval(creatheart, 300);
-    </script>
 </head>
 <body>
+
     <div class="heading">
-        <span>HAPPYYY VALENTINESSS DAYYYY</span>
-        <span class="sub-heading">MYYY LOVEEEE💌💘💕🥰</span>
-        <a href="page2.html">
-            <button align="center">Click me </button>
-        </a>
+        <span>AWWWWWWW IT'S REALLY YOUUUUU<BR>HAPPYYY VALENTINESSS DAYYYY <br> MYYY LOVEEEE💌💘💕🥰</span>
+        
+        <div style="display: flex; justify-content: center;">
+            <button onclick="handleButtonClick(event)">Click me</button>
+        </div>
     </div>
+
+    <script>
+        // Floating Background Effects (Kiss and Heart)
+        function createFloatingEmoji(text) {
+            const emoji = document.createElement('div');
+            emoji.innerText = text;
+            emoji.style.position = 'fixed';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = Math.random() * 100 + 'vh';
+            emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            emoji.style.opacity = '0';
+            emoji.style.transition = 'all 2s ease-in-out';
+            emoji.style.zIndex = '-1';
+            
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.style.opacity = '0.7';
+                emoji.style.transform = 'scale(3)';
+            }, 100);
+
+            setTimeout(() => {
+                emoji.style.opacity = '0';
+                setTimeout(() => emoji.remove(), 2000);
+            }, 3000);
+        }
+
+        setInterval(() => createFloatingEmoji('💋'), 400);
+        setInterval(() => createFloatingEmoji('💗'), 400);
+
+        // Bulk Success Animation
+        function triggerBulkEmojis() {
+            const emojiCount = 60;
+            for (let i = 0; i < emojiCount; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'bulk-emoji';
+                    emoji.innerText = '🥳';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                    emoji.style.animationDuration = (1.5 + Math.random() * 1) + 's';
+                    document.body.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 2500);
+                }, i * 25);
+            }
+        }
+
+        // Handle button click with transition
+        function handleButtonClick(event) {
+            triggerBulkEmojis();
+            
+            // Wait for animation to be visible before changing page
+            setTimeout(() => {
+                window.location.href = "page2.html";
+            }, 1800);
+        }
+    </script>
 </body>
 </html>

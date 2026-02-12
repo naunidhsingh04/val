@@ -3,17 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Our Story</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-        document.body.addEventListener('click', function() {
-        var audio = document.getElementById('bg-music');
-        if (audio.paused) {
-            audio.play();
+    <style>
+        /* Bulk Emoji Success Animation Styles */
+        .bulk-emoji {
+            position: fixed;
+            bottom: -100px;
+            font-size: 3rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: bulkFloatUp 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
-    }, { once: true });
-    </script>
+
+        @keyframes bulkFloatUp {
+            0% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            20% { opacity: 1; }
+            100% { 
+                transform: translateY(-120vh) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        /* Ensuring the button looks consistent with your theme */
+        button {
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            background: #ff4d6d;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-family: 'Chewy', cursive;
+        }
+        button:hover { transform: scale(1.1); }
+
+        /* Style for the text container */
+        .content-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .reveal-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .signature {
+            margin-top: 40px;
+            font-style: italic;
+        }
+    </style>
+
     <script>
+        // Audio Playback Handler - ENSURING SONG STAYS
+        document.addEventListener('click', function() {
+            var audio = document.getElementById('bg-music');
+            if (audio && audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
+
+        // Floating Background Hearts
         function createKiss() {
             const kiss = document.createElement('div');
             kiss.innerText = '❤️';
@@ -23,11 +88,10 @@
             kiss.style.fontSize = (Math.random() * 20 + 20) + 'px';
             kiss.style.opacity = '0';
             kiss.style.transition = 'all 2s ease-in-out';
-            kiss.style.zIndex = '-1'; // Keeps them in the background
+            kiss.style.zIndex = '-1'; 
             
             document.body.appendChild(kiss);
 
-            // Animate in and out
             setTimeout(() => {
                 kiss.style.opacity = '1.0';
                 kiss.style.transform = 'scale(3)';
@@ -38,62 +102,92 @@
                 setTimeout(() => kiss.remove(), 2000);
             }, 3000);
         }
-
-        // Create a new kiss every 800ms
         setInterval(createKiss, 300);
-    </script>
-    <script>
-    const observerOptions = {
-        threshold: 0.5 // Triggers when 50% of the line is visible
-    };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+        // Bulk '🥳' Transition Function
+        function triggerBulkEmojis() {
+            const emojiCount = 50;
+            for (let i = 0; i < emojiCount; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'bulk-emoji';
+                    emoji.innerText = '🥳';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                    emoji.style.animationDuration = (1.5 + Math.random()) + 's';
+                    document.body.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 2500);
+                }, i * 30);
             }
-        });
-    }, observerOptions);
+        }
 
-    // Apply the observer to every line of text
-    document.querySelectorAll('.reveal-text').forEach(line => {
-        observer.observe(line);
-    });
-</script>
+        // Handle Redirect after Transition
+        function handleNextRedirect() {
+            triggerBulkEmojis();
+            setTimeout(() => {
+                window.location.href = "page3.html";
+            }, 1800); 
+        }
+
+        // Initialize Text Reveal Observer
+        window.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-text').forEach(line => {
+                observer.observe(line);
+            });
+        });
+    </script>
 </head>
 <body>
+    <!-- BACKGROUND SONG - KEPT INTACT -->
     <audio id="bg-music" loop autoplay>
-    <source src="./Love Story(PagaiWorld.com).mp3" type="audio/mpeg">
+        <source src="./Love Story(PagaiWorld.com).mp3" type="audio/mpeg">
     </audio>
+
     <div class="main-container">
-    <div class="scroll-track">
-        <div class="polaroid"><img src="IMG-20250809-WA0032.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0028.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0029.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0030.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0031.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0036.jpg"></div>
+        <div class="scroll-track">
+            <!-- Your Polaroid Photos -->
+            <div class="polaroid"><img src="IMG-20250809-WA0032.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0028.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0029.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0030.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0031.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0036.jpg"></div>
+            
+            <!-- Duplicates for scrolling loop -->
+            <div class="polaroid"><img src="IMG-20250809-WA0032.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0028.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0029.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0030.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0031.jpg"></div>
+            <div class="polaroid"><img src="IMG-20250809-WA0036.jpg"></div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="content-wrapper">
+        <div class="message-section">
+            <h2 class="reveal-text">To My Dearest Love,</h2>
+            <p class="reveal-text">Every moment spent with you feels like a beautiful dream come true. You are the light that brightens my darkest days and the warmth that fills my heart with joy.</p>
+            <p class="reveal-text">On this special day, I want to remind you how much you mean to me. You are not just my partner; you are my best friend, my soulmate, and my entire world.</p>
+            <p class="reveal-text">Thank you for being you, for your kindness, your laughter, and for making every day better just by being in it. I am so lucky to have you by my side.</p>
+            <p class="reveal-text">Happy Valentine's Day! May our love continue to grow stronger with every passing second, and may we create a lifetime of beautiful memories together.</p>
+            <p class="reveal-text signature">Forever yours, <br> Kavu ka Noddy</p>
+        </div>
         
-        <div class="polaroid"><img src="IMG-20250809-WA0032.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0028.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0029.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0030.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0031.jpg"></div>
-        <div class="polaroid"><img src="IMG-20250809-WA0036.jpg"></div>
+        <br><br><br><br><br>
+
+        <!-- Redirect handler remains same -->
+        <button onclick="handleNextRedirect()">Next</button>
     </div>
-</div>
-<br>
-<div class="content-wrapper">
-    <div class="message-section">
-        <h2 class="reveal-text">To My Dearest Love,</h2>
-        <p class="reveal-text">On this special day, I want to remind you how much you mean to me...</p>
-        <p class="reveal-text">Happy Valentine's Day! May our love continue to grow stronger...</p>
-        <p class="reveal-text signature">Forever yours, <br> Kavu ka Noddy</p>
-    </div>
-    <br><br><br><br><br>
-    <a href="page3.html" class="next-link">
-        <button>Next</button>
-    </a>
-</div>
 </body>
 </html>
